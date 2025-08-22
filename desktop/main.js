@@ -159,7 +159,7 @@ function createMenu() {
               type: 'info',
               title: 'About EXIF Frame',
               message: 'EXIF Frame',
-              detail: 'Version: 0.4.99\n📸 → 🖼️ with EXIF metadata\n\nDeveloped by yurucam'
+              detail: 'Version: 1.0.0\n📸 → 🖼️ with EXIF metadata\n\nDeveloped by yurucam'
             });
           }
         },
