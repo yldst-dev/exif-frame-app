@@ -24,8 +24,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
         
+    - name: Cache web node_modules
+      uses: actions/cache@v3
+      with:
+        path: web/node_modules
+        key: ${{ runner.os }}-web-node-${{ hashFiles('web/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-web-node-
+          
     - name: Install web dependencies
       working-directory: ./web
       run: npm install
@@ -34,6 +41,14 @@ jobs:
       working-directory: ./web
       run: npm run build
       
+    - name: Cache desktop node_modules
+      uses: actions/cache@v3
+      with:
+        path: desktop/node_modules
+        key: ${{ runner.os }}-desktop-node-${{ hashFiles('desktop/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-desktop-node-
+          
     - name: Install desktop dependencies
       working-directory: ./desktop
       run: npm install
