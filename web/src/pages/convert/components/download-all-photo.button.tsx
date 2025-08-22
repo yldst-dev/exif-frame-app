@@ -34,6 +34,7 @@ const DownloadAllPhotoButton = () => {
     <>
       <Button
         clear
+        data-download-all="true"
         onClick={async () => {
           if (photos.length === 0) return;
           setLoading(true);

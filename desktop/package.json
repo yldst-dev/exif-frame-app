@@ -1,0 +1,94 @@
+{
+  "name": "exif-frame-desktop",
+  "productName": "EXIF Frame",
+  "version": "0.4.99",
+  "description": "📸 → 🖼️ with EXIF metadata - Desktop App",
+  "main": "main.js",
+  "homepage": "./",
+  "scripts": {
+    "electron": "electron .",
+    "electron-dev": "cross-env ELECTRON_IS_DEV=true electron .",
+    "build": "npm run build:web && npm run build:electron",
+    "build:web": "cd ../web && npm run build && cp -r dist ../desktop/dist",
+    "build:electron": "electron-builder",
+    "build:all": "electron-builder --mac --win --linux",
+    "dist": "npm run build && npm run build:all",
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "author": {
+    "name": "yurucam",
+    "email": "dev@yuru.cam"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0",
+    "png2icons": "^2.0.1"
+  },
+  "build": {
+    "appId": "com.yurucam.exif-frame",
+    "productName": "EXIF Frame",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.photography",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "assets/icon.icns"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "zip",
+          "arch": ["x64", "ia32"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        },
+        {
+          "target": "rpm",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Graphics"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

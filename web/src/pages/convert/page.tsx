@@ -1,5 +1,6 @@
 import { BlockTitle, List, ListItem, Navbar, Page, Tabbar, TabbarLink, Toolbar } from 'konsta/react';
 import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import AddPhotoButton from './components/add-photo.button';
 import { useStore } from '../../store';
 import DownloadOnePhotoButton from './components/download-one-photo.button';
@@ -14,10 +15,46 @@ import ImageIcon from '../../icons/image.icon';
 import GenerateIcon from '../../icons/generate.icon';
 import AddPhotoErrorDialog from './components/add-photo-error.dialog';
 import AddPhotoDragInDrop from './components/add-photo.drag-in-drop';
+import { setupElectronMenuListeners, removeElectronMenuListeners, readElectronFile } from '../../utils/electron';
 
 const FramePage = () => {
   const { t } = useTranslation();
-  const { focalLength35mmMode, photos, setTabIndex } = useStore();
+  const { focalLength35mmMode, photos, setTabIndex, addPhotos } = useStore();
+
+  // Electron 메뉴 이벤트 설정
+  useEffect(() => {
+    setupElectronMenuListeners({
+      onNew: () => {
+        // 새 프로젝트 시작 (모든 사진 제거)
+        const { removeAllPhotos } = useStore.getState();
+        removeAllPhotos();
+      },
+      onOpenFiles: async (filePaths: string[]) => {
+        // Electron에서 파일 경로로 파일 열기
+        try {
+          const files: File[] = [];
+          for (const filePath of filePaths) {
+            const file = await readElectronFile(filePath);
+            files.push(file);
+          }
+          addPhotos(files);
+        } catch (error) {
+          console.error('Failed to open files from Electron menu:', error);
+        }
+      },
+      onSave: () => {
+        // 저장 기능 (다운로드 올 버튼 클릭과 동일)
+        const downloadAllButton = document.querySelector('[data-download-all]') as HTMLButtonElement;
+        if (downloadAllButton) {
+          downloadAllButton.click();
+        }
+      }
+    });
+
+    return () => {
+      removeElectronMenuListeners();
+    };
+  }, [addPhotos]);
 
   return (
     <Page style={{ paddingBottom: '10rem' }}>

@@ -22,6 +22,29 @@
 
 [EXIF Frame](https://exif-frame.yuru.cam) is a web application that displays exif metadata in the frame by adding a white border frame to the image. Users can process the uploaded image and download the result. You can also manually edit the automatically acquired and displayed exif metadata later.
 
+## 🚀 Available Platforms
+
+- **🌐 Web App**: [exif-frame.yuru.cam](https://exif-frame.yuru.cam)
+- **📱 Mobile Apps**: 
+  - [Google Play Store](https://play.google.com/store/apps/details?id=com.yurucam.exif)
+  - [Apple App Store](https://apps.apple.com/kr/app/exif-%ED%94%84%EB%A0%88%EC%9E%84/id6494989030)
+- **💻 Desktop Apps**: 
+  - macOS (Intel & Apple Silicon)
+  - Windows (x64 & x32)
+  - Linux (AppImage, deb, rpm)
+
+## 📦 Desktop App
+
+The desktop version provides native file system integration and enhanced user experience.
+
+### Download
+
+Desktop apps are automatically built and released via GitHub Actions. Check the [Releases](https://github.com/yurucam/exif-frame/releases) page for the latest versions.
+
+### Development
+
+See [desktop/README.md](desktop/README.md) for setup and build instructions.
+
 ## Contributors
 
 Special thanks to all the people who have contributed to this project:
