@@ -41,6 +41,9 @@
     ],
     "mac": {
       "category": "public.app-category.photography",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null,
       "target": [
         {
           "target": "dmg",
@@ -100,6 +103,29 @@
     },
     "portable": {
       "artifactName": "${productName}-${version}-portable-${arch}.${ext}"
+    },
+    "dmg": {
+      "background": null,
+      "title": "${productName} ${version}",
+      "icon": "assets/icon.icns",
+      "iconSize": 80,
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      }
     }
   }
 }

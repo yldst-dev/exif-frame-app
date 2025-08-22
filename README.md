@@ -41,6 +41,38 @@ The desktop version provides native file system integration and enhanced user ex
 
 Desktop apps are automatically built and released via GitHub Actions. Check the [Releases](https://github.com/yurucam/exif-frame/releases) page for the latest versions.
 
+#### **🍎 macOS Installation**
+
+If you encounter the "app is damaged and can't be opened" error:
+
+**Method 1: Use Terminal (Recommended)**
+```bash
+sudo xattr -rd com.apple.quarantine "/Applications/EXIF Frame.app"
+```
+
+**Method 2: System Preferences**
+1. Go to **System Preferences** > **Security & Privacy**
+2. Click **General** tab
+3. Click **Open Anyway** next to the blocked app message
+4. Or check **"App Store and identified developers"** and click **"Open Anyway"**
+
+**Method 3: Right-click Method**
+1. Right-click on the app
+2. Select **"Open"** from the context menu
+3. Click **"Open"** in the warning dialog
+
+#### **🪟 Windows Installation**
+
+- **Installer**: `.exe` files with installation wizard
+- **Portable**: `-portable.exe` files (no installation required)
+
+#### **🐧 Linux Installation**
+
+- **AppImage**: Universal portable executable (all distributions)
+- **deb**: Debian/Ubuntu packages (`sudo dpkg -i filename.deb`)
+- **rpm**: RHEL/Fedora packages (`sudo rpm -i filename.rpm`)
+- **tar.gz**: Portable archive (extract and run)
+
 ### Development
 
 See [desktop/README.md](desktop/README.md) for setup and build instructions.
