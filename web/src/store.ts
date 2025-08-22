@@ -74,6 +74,8 @@ type Store = {
 
   photos: Photo[];
   setPhotos: (photos: Photo[]) => void;
+  addPhotos: (photos: Photo[]) => void;
+  removeAllPhotos: () => void;
 
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -258,6 +260,8 @@ const useStore = create<Store>((set) => ({
 
   photos: [],
   setPhotos: (photos: Photo[]) => set({ photos }),
+  addPhotos: (newPhotos: Photo[]) => set((state) => ({ photos: [...state.photos, ...newPhotos] })),
+  removeAllPhotos: () => set({ photos: [] }),
 
   loading: false,
   setLoading: (loading: boolean) => set({ loading }),
