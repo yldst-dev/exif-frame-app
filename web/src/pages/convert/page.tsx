@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 import AddPhotoButton from './components/add-photo.button';
 import { useStore } from '../../store';
+import Photo from '../../core/photo';
 import DownloadOnePhotoButton from './components/download-one-photo.button';
 import RemoveOnePhotoButton from './components/remove-one-photo.button';
 import DownloadAllPhotoButton from './components/download-all-photo.button';
@@ -37,7 +38,10 @@ const FramePage = () => {
             const file = await readElectronFile(filePath);
             files.push(file);
           }
-          addPhotos(files);
+          
+          // Convert Files to Photos
+          const photos = await Promise.all(files.map(file => Photo.create(file)));
+          addPhotos(photos);
         } catch (error) {
           console.error('Failed to open files from Electron menu:', error);
         }
