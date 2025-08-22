@@ -9,7 +9,7 @@ import free from '../../../core/drawing/free';
 import download from '../../../core/file-system/download';
 import { ThemeOptionInput, getConverter } from '../../theme/types/theme-option';
 import Customize from '../../theme/database/customize';
-import { ExifRestorer } from 'exif-restorer';
+// import { ExifRestorer } from 'exif-restorer'; // Package removed from npm
 
 interface DownloadOnePhotoButtonProps {
   photo: Photo;
@@ -45,7 +45,10 @@ const DownloadOnePhotoButton: React.FC<DownloadOnePhotoButtonProps> = ({ photo }
           free(canvas);
 
           if (exportToJpeg && maintainExif) {
-            await download(filename, ExifRestorer.restore(photo.imageBase64, data));
+            // TODO: Implement EXIF restoration functionality
+            // ExifRestorer package is no longer available on npm
+            console.warn('EXIF restoration temporarily disabled - package unavailable');
+            await download(filename, data);
           } else {
             await download(filename, data); // TODO: Add Exif data to the webp file
           }
