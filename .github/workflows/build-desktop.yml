@@ -25,13 +25,10 @@ jobs:
       with:
         node-version: '18'
         cache: 'npm'
-        cache-dependency-path: |
-          web/package-lock.json
-          desktop/package-lock.json
         
     - name: Install web dependencies
       working-directory: ./web
-      run: npm ci
+      run: npm install
       
     - name: Build web app
       working-directory: ./web
@@ -39,20 +36,23 @@ jobs:
       
     - name: Install desktop dependencies
       working-directory: ./desktop
-      run: npm ci
+      run: npm install
       
     - name: Generate app icons (Unix)
       if: matrix.os != 'windows-latest'
       working-directory: ./desktop
       run: |
+        npm install -g png2icons || echo "Failed to install png2icons"
         chmod +x generate-icons.sh
-        ./generate-icons.sh || echo "Icon generation failed, using fallback"
+        ./generate-icons.sh || echo "Icon generation failed, using fallback icons"
         
     - name: Generate app icons (Windows)
       if: matrix.os == 'windows-latest'
       working-directory: ./desktop
       run: |
-        generate-icons.bat || echo "Icon generation failed, using fallback"
+        npm install -g png2icons
+        ./generate-icons.bat
+      continue-on-error: true
       
     - name: Copy web build to desktop (Unix)
       if: matrix.os != 'windows-latest'
@@ -62,7 +62,7 @@ jobs:
     - name: Copy web build to desktop (Windows)
       if: matrix.os == 'windows-latest'
       run: |
-        xcopy web\dist desktop\dist /E /I /Y
+        robocopy web\dist desktop\dist /E /NFL /NDL /NJH /NJS /nc /ns /np || if %errorlevel% leq 1 exit 0
         
     - name: Build desktop app (macOS)
       if: matrix.os == 'macos-latest'

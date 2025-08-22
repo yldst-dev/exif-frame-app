@@ -50,8 +50,7 @@
           "target": "zip",
           "arch": ["x64", "arm64"]
         }
-      ],
-      "icon": "assets/icon.icns"
+      ]
     },
     "win": {
       "target": [
@@ -63,8 +62,7 @@
           "target": "zip",
           "arch": ["x64", "ia32"]
         }
-      ],
-      "icon": "assets/icon.ico"
+      ]
     },
     "linux": {
       "target": [
@@ -81,7 +79,6 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "assets/icon.png",
       "category": "Graphics"
     },
     "nsis": {
